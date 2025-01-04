@@ -17,7 +17,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("com.h2database:h2")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
-    implementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
-
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    implementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
+    implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
+
 }

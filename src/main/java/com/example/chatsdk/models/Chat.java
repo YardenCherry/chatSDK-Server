@@ -24,7 +24,6 @@ public class Chat {
     @Column(nullable = false)
     private LocalDateTime lastMessageTime = LocalDateTime.now();
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
