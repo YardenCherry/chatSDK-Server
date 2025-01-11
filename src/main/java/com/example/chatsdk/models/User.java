@@ -4,30 +4,23 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-//@Entity
-//@Table(name = "users")
-@Document(collection = "users")// MongoDB collection name
+
+@Document(collection = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @Column(unique = true, nullable = false)
     private String username;
 
-    @Column(nullable = false)
     private String passwordHash;
 
     private String avatarUrl;
 
-    @Column(nullable = false)
     private String status = "offline";
 
-    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    // Default Constructor (required by JPA)
     public User() {
     }
 
@@ -40,12 +33,8 @@ public class User {
     }
 
 
-    public Long getId() {
+    public String getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {

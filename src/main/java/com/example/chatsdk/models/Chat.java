@@ -5,35 +5,25 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-//@Entity
-//@Table(name = "chats")
+
 @Document(collection = "chats")// MongoDB collection name
 public class Chat {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "user1_id", nullable = false)
     private User user1;
 
-    @ManyToOne
-    @JoinColumn(name = "user2_id", nullable = false)
     private User user2;
 
     private String lastMessage;
 
-    @Column(nullable = false)
     private LocalDateTime lastMessageTime = LocalDateTime.now();
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public User getUser1() {
         return user1;

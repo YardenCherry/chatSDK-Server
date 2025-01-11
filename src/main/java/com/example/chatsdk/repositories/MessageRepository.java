@@ -6,11 +6,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MessageRepository extends MongoRepository<Message, Long> {
+public interface MessageRepository extends MongoRepository<Message, String> {
 
-    // Find all messages in a specific chat
-    public List<Message> findByChatId(Long chatId);
+    public List<Message> findByChatId(String chatId);
 
-    // Find all unread messages for a specific receiver
-    public List<Message> findUnreadMessagesByReceiverId(Long receiverId);
+    public List<Message> findUnreadMessagesByReceiverId(String receiverId);
 }
