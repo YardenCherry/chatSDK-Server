@@ -1,42 +1,75 @@
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+# Compiled class files
+*.class
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+# Log files
+*.log
+logs/
+spring.log
 
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+*.swn
+
+# Temporary directories
+tmp/
+temp/
+
+# Compiled Java binary files
+*.jar
+*.war
+*.ear
+
+# Eclipse IDE files
 .project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+.classpath
+.settings/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# IntelliJ IDEA files
+.idea/
+*.iml
+*.iws
 
-### VS Code ###
-.vscode/
-
-### Mac OS ###
+# MacOS system files
 .DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Maven dependencies
+target/
+*.mvn/
+.mvn/timing.log
+!mvn/wrapper/maven-wrapper.jar
+
+# Gradle files
+.gradle/
+build/
+out/
+!gradle-wrapper.jar
+
+# H2 Database files
+*.h2.db
+*.mv.db
+*.trace.db
+
+# Node and NPM dependencies (if applicable)
+node_modules/
+
+# Docker-related files
+*.env
+docker-compose.override.yml
+.env
+
+# Swagger Codegen files
+swagger/
+*.yaml
+
+# Ignore compiled Kotlin files
+*.kt.*

@@ -1,7 +1,7 @@
 package com.example.chatsdk.repositories;
 import com.example.chatsdk.models.Chat;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import org.springframework.stereotype.Repository;
 
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 
-public interface ChatRepository extends JpaRepository<Chat, Long> {
+public interface ChatRepository extends MongoRepository<Chat, Long> {
 
     // Find all chats for a specific user (user1 or user2)
 

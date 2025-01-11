@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "users")
+//@Entity
+//@Table(name = "users")
 @Document(collection = "users")// MongoDB collection name
 public class User {
 
