@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
+@Document(collection = "users")// MongoDB collection name
 public class User {
 
     @Id
