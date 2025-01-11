@@ -1,10 +1,13 @@
 package com.example.chatsdk.models;
 
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "chats")
+@Document(collection = "chats")// MongoDB collection name
 public class Chat {
 
     @Id

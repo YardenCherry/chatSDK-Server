@@ -2,6 +2,7 @@ package com.example.chatsdk.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Entity
 @Table(name = "users")
