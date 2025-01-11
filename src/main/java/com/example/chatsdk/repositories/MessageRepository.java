@@ -9,8 +9,8 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
     // Find all messages in a specific chat
-    List<Message> findByChatId(Long chatId);
+    public List<Message> findByChatId(Long chatId);
 
     // Find all unread messages for a specific receiver
-    List<Message> findUnreadMessagesByReceiverId(Long receiverId);
+    public List<Message> findUnreadMessagesByReceiverId(Long receiverId);
 }
