@@ -5,8 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "messages")
+//@Entity
+//@Table(name = "messages")
 @Document(collection = "messages")// MongoDB collection name
 public class Message {
 
