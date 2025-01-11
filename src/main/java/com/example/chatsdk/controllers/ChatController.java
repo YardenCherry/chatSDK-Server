@@ -47,6 +47,7 @@ public class ChatController {
     public ResponseEntity<?> createOrGetChat(@RequestParam Long user1Id, @RequestParam Long user2Id) {
         // Validate users
         User user1 = userService.findById(user1Id);
+
         User user2 = userService.findById(user2Id);
 
         if (user1 == null || user2 == null) {
