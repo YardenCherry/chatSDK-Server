@@ -5,37 +5,24 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-//@Entity
-//@Table(name = "messages")
-@Document(collection = "messages")// MongoDB collection name
+@Document(collection = "messages")
 public class Message {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "chat_id", nullable = false)
-    private Chat chat; // Reference to the Chat this message belongs to
+    private Chat chat;
 
-    @ManyToOne
-    @JoinColumn(name = "sender_id", nullable = false)
-    private User sender; // Reference to the User who sent the message
+    private User sender;
 
-    @ManyToOne
-    @JoinColumn(name = "receiver_id", nullable = false)
-    private User receiver; // Reference to the User who received the message
+    private User receiver;
 
-    @Column(nullable = false)
-    private String content; // The actual message content
+    private String content;
 
-    @Column(nullable = false)
-    private LocalDateTime timestamp = LocalDateTime.now(); // When the message was sent
+    private LocalDateTime timestamp = LocalDateTime.now();
 
-    @Column(nullable = false)
-    private boolean isRead = false; // Whether the message has been read by the receiver
+    private boolean isRead = false;
 
-    // Constructors
     public Message() {
     }
 
@@ -46,13 +33,8 @@ public class Message {
         this.content = content;
     }
 
-    // Getters and Setters
-    public Long getId() {
+    public String getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Chat getChat() {

@@ -23,14 +23,14 @@ public class ChatService {
     @Autowired
     private ChatRepository chatRepository;
 
-    public List<Chat> getChatsByUserId(Long userId) {
+    public List<Chat> getChatsByUserId(String userId) {
 
         return chatRepository.findByUser1IdOrUser2Id(userId, userId);
 
     }
 
 
-    public Chat getChatBetweenUsers(Long user1Id, Long user2Id) {
+    public Chat getChatBetweenUsers(String user1Id, String user2Id) {
 
         return chatRepository.findByUser1IdAndUser2Id(user1Id, user2Id);
 
@@ -60,7 +60,7 @@ public class ChatService {
 
     }
 
-    public Chat updateLastMessage(Long chatId, String lastMessage, LocalDateTime messageTime) {
+    public Chat updateLastMessage(String chatId, String lastMessage, LocalDateTime messageTime) {
 
         Optional<Chat> optionalChat = chatRepository.findById(chatId);
 
@@ -76,12 +76,12 @@ public class ChatService {
 
         }
 
-        return null; // Handle the case where the chat does not exist
+        return null;
 
     }
 
 
-    public Chat getChatById(Long chatId) {
+    public Chat getChatById(String chatId) {
 
         return chatRepository.findById(chatId).orElse(null);
 

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -27,8 +29,25 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping("/{id}/status")
-    public User updateStatus(@PathVariable Long id, @RequestParam String status) {
-        return userService.updateUserStatus(id, status);
+
+    @PutMapping("/online-users")
+    public ResponseEntity<?> getAllOnlineUsers() {
+        List<User> onlineUsers = userService.getAllOnlineUsers();
+        if (onlineUsers.isEmpty()) {
+            return ResponseEntity.status(204).body("No online users found"); // HTTP 204 No Content
+        }
+        return ResponseEntity.ok(onlineUsers); // HTTP 200 OK
     }
+
+
+    @PutMapping("/logout")
+    public ResponseEntity<?> logoutUser(@RequestParam String id) {
+        try {
+            User user = userService.logoutUser(id);
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body("User not found: " + e.getMessage());
+        }
+    }
+
 }

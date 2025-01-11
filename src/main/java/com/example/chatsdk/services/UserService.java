@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +16,10 @@ public class UserService {
     private UserRepository userRepository;
 
     public User registerUser(String username, String passwordHash, String avatarUrl) {
+        Optional<User> existingUser = userRepository.findByUsername(username);
+        if (existingUser.isPresent()) {
+            throw new RuntimeException("Username already exists");
+        }
         User user = new User();
         user.setUsername(username);
         user.setPasswordHash(passwordHash);
@@ -30,18 +35,18 @@ public class UserService {
         return user.orElse(null);
     }
 
-    public User findById(Long userId) {
+    public User findById(String userId) {
         Optional<User> user = userRepository.findById(userId);
         return user.orElse(null);
     }
 
-    public User updateUserStatus(Long userId, String status) {
+    public User logoutUser(String userId) {
         User user = findById(userId);
         if (user != null) {
-            user.setStatus(status);
+            user.setStatus("offline");
             return userRepository.save(user);
         }
-        return null;
+        throw new RuntimeException("User not found");
     }
 
     public User authenticateUser(String username, String password) {
@@ -49,12 +54,15 @@ public class UserService {
         if (user == null) {
             return null;
         }
-
         if (!user.getPasswordHash().equals(password)) {
             return null;
         }
-
         user.setStatus("online");
-        return user;
+
+        return userRepository.save(user);
+    }
+
+    public List<User> getAllOnlineUsers() {
+        return userRepository.findAllByStatus("online");
     }
 }

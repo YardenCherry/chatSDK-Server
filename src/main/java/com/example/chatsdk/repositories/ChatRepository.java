@@ -9,15 +9,13 @@ import java.util.List;
 
 @Repository
 
-public interface ChatRepository extends MongoRepository<Chat, Long> {
+public interface ChatRepository extends MongoRepository<Chat, String> {
 
-    // Find all chats for a specific user (user1 or user2)
 
-    List<Chat> findByUser1IdOrUser2Id(Long user1Id, Long user2Id);
+    List<Chat> findByUser1IdOrUser2Id(String user1Id, String user2Id);
 
-    // Find a chat between two specific users
 
-    Chat findByUser1IdAndUser2Id(Long user1Id, Long user2Id);
+    Chat findByUser1IdAndUser2Id(String user1Id, String user2Id);
 
 }
 

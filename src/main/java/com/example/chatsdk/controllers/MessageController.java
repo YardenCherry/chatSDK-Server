@@ -26,20 +26,11 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
-    /**
-     * Send a message in a chat.
-     *
-     * @param chatId   The ID of the chat.
-     * @param senderId The ID of the sender.
-     * @param receiverId The ID of the receiver.
-     * @param content  The message content.
-     * @return The created Message object.
-     */
     @PostMapping("/send")
     public ResponseEntity<?> sendMessage(
-            @RequestParam Long chatId,
-            @RequestParam Long senderId,
-            @RequestParam Long receiverId,
+            @RequestParam String chatId,
+            @RequestParam String senderId,
+            @RequestParam String receiverId,
             @RequestParam String content) {
 
         Chat chat = chatService.getChatById(chatId);
@@ -59,26 +50,14 @@ public class MessageController {
         return ResponseEntity.ok(message);
     }
 
-    /**
-     * Get all messages in a specific chat.
-     *
-     * @param chatId The ID of the chat.
-     * @return A list of messages in the chat.
-     */
-    @GetMapping("/chat/{chatId}")
-    public ResponseEntity<List<Message>> getMessagesByChatId(@PathVariable Long chatId) {
+    @GetMapping("/messages-in-chat/{chatId}")
+    public ResponseEntity<List<Message>> getMessagesByChatId(@PathVariable String chatId) {
         List<Message> messages = messageService.getMessagesByChatId(chatId);
         return ResponseEntity.ok(messages);
     }
 
-    /**
-     * Mark a message as read.
-     *
-     * @param messageId The ID of the message.
-     * @return The updated Message object.
-     */
-    @PostMapping("/{messageId}/read")
-    public ResponseEntity<?> markMessageAsRead(@PathVariable Long messageId) {
+    @PostMapping("/{messageId}/mark-as-read")
+    public ResponseEntity<?> markMessageAsRead(@PathVariable String messageId) {
         Message message = messageService.markMessageAsRead(messageId);
         if (message == null) {
             return ResponseEntity.notFound().build();
@@ -86,14 +65,9 @@ public class MessageController {
         return ResponseEntity.ok(message);
     }
 
-    /**
-     * Get unread messages for a user.
-     *
-     * @param userId The ID of the user.
-     * @return A list of unread messages for the user.
-     */
+
     @GetMapping("/unread/{userId}")
-    public ResponseEntity<List<Message>> getUnreadMessages(@PathVariable Long userId) {
+    public ResponseEntity<List<Message>> getUnreadMessages(@PathVariable String userId) {
         List<Message> unreadMessages = messageService.getUnreadMessagesByUserId(userId);
         return ResponseEntity.ok(unreadMessages);
     }
