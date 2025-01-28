@@ -10,13 +10,9 @@ public class User {
 
     @Id
     private String id;
-
     private String username;
-
     private String passwordHash;
-
     private String avatarUrl;
-
     private String status = "offline";
 
     private LocalDateTime createdAt = LocalDateTime.now();

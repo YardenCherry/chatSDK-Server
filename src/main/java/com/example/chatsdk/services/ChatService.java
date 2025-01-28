@@ -87,6 +87,9 @@ public class ChatService {
 
     }
 
+    public void deleteAllChats() {
+        chatRepository.deleteAll();
+    }
 }
 
 

@@ -4,21 +4,20 @@ import jakarta.persistence.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Document(collection = "chats")// MongoDB collection name
 public class Chat {
 
     @Id
     private String id;
-
     private String username1;
-
     private String username2;
-
     private String lastMessage;
     private String user1Id;
     private String user2Id;
+
 
     private LocalDateTime lastMessageTime = LocalDateTime.now();
 
