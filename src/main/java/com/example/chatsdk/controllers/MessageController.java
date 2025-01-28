@@ -38,8 +38,8 @@ public class MessageController {
             return ResponseEntity.badRequest().body("Invalid chat ID");
         }
 
-        User sender = userService.findById(senderId);
-        User receiver = userService.findById(receiverId);
+        User sender = userService.loadUser(senderId);
+        User receiver = userService.loadUser(receiverId);
 
         if (sender == null || receiver == null) {
             return ResponseEntity.badRequest().body("Invalid sender or receiver ID");

@@ -12,11 +12,13 @@ public class Chat {
     @Id
     private String id;
 
-    private User user1;
+    private String username1;
 
-    private User user2;
+    private String username2;
 
     private String lastMessage;
+    private String user1Id;
+    private String user2Id;
 
     private LocalDateTime lastMessageTime = LocalDateTime.now();
 
@@ -24,21 +26,20 @@ public class Chat {
         return id;
     }
 
-
-    public User getUser1() {
-        return user1;
+    public String getUsername1() {
+        return username1;
     }
 
-    public void setUser1(User user1) {
-        this.user1 = user1;
+    public void setUsername1(String username1) {
+        this.username1 = username1;
     }
 
-    public User getUser2() {
-        return user2;
+    public String getUsername2() {
+        return username2;
     }
 
-    public void setUser2(User user2) {
-        this.user2 = user2;
+    public void setUsername2(String username2) {
+        this.username2 = username2;
     }
 
     public String getLastMessage() {
@@ -55,5 +56,21 @@ public class Chat {
 
     public void setLastMessageTime(LocalDateTime lastMessageTime) {
         this.lastMessageTime = lastMessageTime;
+    }
+
+    public String getUser1Id() {
+        return user1Id;
+    }
+
+    public void setUser1Id(String user1Id) {
+        this.user1Id = user1Id;
+    }
+
+    public String getUser2Id() {
+        return user2Id;
+    }
+
+    public void setUser2Id(String user2Id) {
+        this.user2Id = user2Id;
     }
 }

@@ -25,7 +25,7 @@ public class ChatService {
 
     public List<Chat> getChatsByUserId(String userId) {
 
-        return chatRepository.findByUser1IdOrUser2Id(userId, userId);
+        return chatRepository.findByUser1IdOrUser2Id(userId,userId);
 
     }
 
@@ -48,9 +48,9 @@ public class ChatService {
 
         Chat newChat = new Chat();
 
-        newChat.setUser1(user1);
+        newChat.setUsername1(user1.getUsername());
 
-        newChat.setUser2(user2);
+        newChat.setUsername2(user2.getUsername());
 
         newChat.setLastMessage("");
 

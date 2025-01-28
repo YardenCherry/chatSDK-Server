@@ -35,13 +35,13 @@ public class UserService {
         return user.orElse(null);
     }
 
-    public User findById(String userId) {
+    public User loadUser(String userId) {
         Optional<User> user = userRepository.findById(userId);
         return user.orElse(null);
     }
 
     public User logoutUser(String userId) {
-        User user = findById(userId);
+        User user = loadUser(userId);
         if (user != null) {
             user.setStatus("offline");
             return userRepository.save(user);
@@ -62,7 +62,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getAllOnlineUsers() {
-        return userRepository.findAllByStatus("online");
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }

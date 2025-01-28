@@ -22,7 +22,7 @@ public class ChatController {
     private UserService userService;
 
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/get-all-chats-of-user")
     public ResponseEntity<List<Chat>> getChatsForUser(@PathVariable String userId) {
         List<Chat> chats = chatService.getChatsByUserId(userId);
         if (chats.isEmpty()) {
@@ -35,9 +35,9 @@ public class ChatController {
     @PostMapping("/create")
     public ResponseEntity<?> createOrGetChat(@RequestParam String user1Id, @RequestParam String user2Id) {
         // Validate users
-        User user1 = userService.findById(user1Id);
+        User user1 = userService.loadUser(user1Id);
 
-        User user2 = userService.findById(user2Id);
+        User user2 = userService.loadUser(user2Id);
 
         if (user1 == null || user2 == null) {
             return ResponseEntity.badRequest().body("Invalid user IDs provided.");

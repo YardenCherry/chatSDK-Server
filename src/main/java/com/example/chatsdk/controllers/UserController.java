@@ -29,14 +29,23 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-
-    @PutMapping("/online-users")
-    public ResponseEntity<?> getAllOnlineUsers() {
-        List<User> onlineUsers = userService.getAllOnlineUsers();
-        if (onlineUsers.isEmpty()) {
-            return ResponseEntity.status(204).body("No online users found"); // HTTP 204 No Content
+    @GetMapping("/loadUser")
+    public ResponseEntity<?> getUserByUsername(@RequestParam String userId) {
+        User user = userService.loadUser(userId);
+        if (user == null) {
+            return ResponseEntity.status(401).body("Invalid user id");
         }
-        return ResponseEntity.ok(onlineUsers); // HTTP 200 OK
+        return ResponseEntity.ok(user);
+    }
+
+
+    @PutMapping("/users")
+    public ResponseEntity<?> getAllUsers() {
+        List<User> allUsers = userService.getAllUsers();
+        if (allUsers.isEmpty()) {
+            return ResponseEntity.status(204).body("No users found"); // HTTP 204 No Content
+        }
+        return ResponseEntity.ok(allUsers); // HTTP 200 OK
     }
 
 
