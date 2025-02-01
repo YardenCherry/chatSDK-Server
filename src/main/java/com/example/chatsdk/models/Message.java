@@ -1,64 +1,63 @@
 package com.example.chatsdk.models;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@Document(collection = "messages")
+@Document(collection = "messages") // Store messages in a separate collection
 public class Message {
 
     @Id
     private String id;
-
-    private Chat chat;
-
-    private User sender;
-
-    private User receiver;
-
+    private String chatId; // Reference to the chat
+    private String senderId;
+    private String receiverId;
     private String content;
-
     private LocalDateTime timestamp = LocalDateTime.now();
-
-    private boolean isRead = false;
 
     public Message() {
     }
 
-    public Message(Chat chat, User sender, User receiver, String content) {
-        this.chat = chat;
-        this.sender = sender;
-        this.receiver = receiver;
+    public Message(String chatId, String senderId, String receiverId, String content) {
+        this.chatId = chatId;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
         this.content = content;
+        this.timestamp = LocalDateTime.now();
     }
 
+    // Getters and setters
     public String getId() {
         return id;
     }
 
-    public Chat getChat() {
-        return chat;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setChat(Chat chat) {
-        this.chat = chat;
+    public String getChatId() {
+        return chatId;
     }
 
-    public User getSender() {
-        return sender;
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public String getSenderId() {
+        return senderId;
     }
 
-    public User getReceiver() {
-        return receiver;
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
     }
 
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
     }
 
     public String getContent() {
@@ -75,13 +74,5 @@ public class Message {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public boolean isRead() {
-        return isRead;
-    }
-
-    public void setRead(boolean read) {
-        isRead = read;
     }
 }

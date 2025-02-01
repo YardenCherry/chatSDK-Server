@@ -25,7 +25,7 @@ public class ChatService {
 
     public List<Chat> getChatsByUserId(String userId) {
 
-        return chatRepository.findByUser1IdOrUser2Id(userId, userId);
+        return chatRepository.findByUser1IdOrUser2Id(userId,userId);
 
     }
 
@@ -38,22 +38,22 @@ public class ChatService {
 
     public Chat createOrGetChat(User user1, User user2) {
 
-        Chat existingChat = chatRepository.findByUser1IdAndUser2Id(user1.getId(), user2.getId());
+        Chat existingChat1 = chatRepository.findByUser1IdAndUser2Id(user1.getId(), user2.getId());
+        if (existingChat1 != null) {
+            return existingChat1;
+        }
 
-        if (existingChat != null) {
-
-            return existingChat;
-
+        Chat existingChat2 = chatRepository.findByUser1IdAndUser2Id(user2.getId(), user1.getId());
+        if (existingChat2 != null) {
+            return existingChat2;
         }
 
         Chat newChat = new Chat();
-
-        newChat.setUser1(user1);
-
-        newChat.setUser2(user2);
-
+        newChat.setUsername1(user1.getUsername());
+        newChat.setUsername2(user2.getUsername());
+        newChat.setUser1Id(user1.getId());
+        newChat.setUser2Id(user2.getId());
         newChat.setLastMessage("");
-
         newChat.setLastMessageTime(LocalDateTime.now());
 
         return chatRepository.save(newChat);
@@ -87,6 +87,9 @@ public class ChatService {
 
     }
 
+    public void deleteAllChats() {
+        chatRepository.deleteAll();
+    }
 }
 
 

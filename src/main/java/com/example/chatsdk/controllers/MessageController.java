@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -38,14 +39,14 @@ public class MessageController {
             return ResponseEntity.badRequest().body("Invalid chat ID");
         }
 
-        User sender = userService.findById(senderId);
-        User receiver = userService.findById(receiverId);
+        User sender = userService.loadUser(senderId);
+        User receiver = userService.loadUser(receiverId);
 
         if (sender == null || receiver == null) {
             return ResponseEntity.badRequest().body("Invalid sender or receiver ID");
         }
 
-        Message message = messageService.sendMessage(chat, sender, receiver, content);
+        Message message = messageService.sendMessage(chatId, senderId, receiverId, content);
         chatService.updateLastMessage(chatId, content, LocalDateTime.now()); // Update last message in chat
         return ResponseEntity.ok(message);
     }
@@ -53,22 +54,17 @@ public class MessageController {
     @GetMapping("/messages-in-chat/{chatId}")
     public ResponseEntity<List<Message>> getMessagesByChatId(@PathVariable String chatId) {
         List<Message> messages = messageService.getMessagesByChatId(chatId);
+        if (messages.isEmpty()) {
+            ResponseEntity.ok(Collections.emptyList());
+        }
         return ResponseEntity.ok(messages);
     }
 
-    @PostMapping("/{messageId}/mark-as-read")
-    public ResponseEntity<?> markMessageAsRead(@PathVariable String messageId) {
-        Message message = messageService.markMessageAsRead(messageId);
-        if (message == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(message);
+    @DeleteMapping("/delete-all-messages")
+    public ResponseEntity<?> deleteAllMessages() {
+        messageService.deleteAllMessages();
+        chatService.deleteAllChats();
+        return ResponseEntity.ok("All messages have been deleted successfully.");
     }
 
-
-    @GetMapping("/unread/{userId}")
-    public ResponseEntity<List<Message>> getUnreadMessages(@PathVariable String userId) {
-        List<Message> unreadMessages = messageService.getUnreadMessagesByUserId(userId);
-        return ResponseEntity.ok(unreadMessages);
-    }
 }

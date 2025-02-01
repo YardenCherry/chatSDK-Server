@@ -3,12 +3,14 @@ package com.example.chatsdk.controllers;
 import com.example.chatsdk.models.Chat;
 import com.example.chatsdk.models.User;
 import com.example.chatsdk.services.ChatService;
+import com.example.chatsdk.services.MessageService;
 import com.example.chatsdk.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -21,12 +23,14 @@ public class ChatController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MessageService messageService;
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/get-all-chats-of-user/{userId}")
     public ResponseEntity<List<Chat>> getChatsForUser(@PathVariable String userId) {
         List<Chat> chats = chatService.getChatsByUserId(userId);
         if (chats.isEmpty()) {
-            return ResponseEntity.noContent().build();
+            ResponseEntity.ok(Collections.emptyList());
         }
         return ResponseEntity.ok(chats);
     }
@@ -35,9 +39,9 @@ public class ChatController {
     @PostMapping("/create")
     public ResponseEntity<?> createOrGetChat(@RequestParam String user1Id, @RequestParam String user2Id) {
         // Validate users
-        User user1 = userService.findById(user1Id);
+        User user1 = userService.loadUser(user1Id);
 
-        User user2 = userService.findById(user2Id);
+        User user2 = userService.loadUser(user2Id);
 
         if (user1 == null || user2 == null) {
             return ResponseEntity.badRequest().body("Invalid user IDs provided.");
@@ -64,5 +68,12 @@ public class ChatController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(chat);
+    }
+    @DeleteMapping("/delete-all-chats")
+    public ResponseEntity<?> deleteAllChats() {
+        chatService.deleteAllChats();
+        messageService.deleteAllMessages();
+        return ResponseEntity.ok("All chats have been deleted successfully.");
+
     }
 }

@@ -16,8 +16,8 @@ public class MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
-    public Message sendMessage(Chat chat, User sender, User receiver, String content) {
-        Message message = new Message(chat, sender, receiver, content);
+    public Message sendMessage(String chatId, String senderId, String receiverId, String content) {
+        Message message = new Message(chatId, senderId, receiverId, content);
         return messageRepository.save(message);
     }
 
@@ -25,17 +25,7 @@ public class MessageService {
         return messageRepository.findByChatId(chatId);
     }
 
-    public Message markMessageAsRead(String messageId) {
-        Optional<Message> optionalMessage = messageRepository.findById(messageId);
-        if (optionalMessage.isPresent()) {
-            Message message = optionalMessage.get();
-            message.setRead(true);
-            return messageRepository.save(message);
-        }
-        return null; // Handle case where message does not exist
-    }
-
-    public List<Message> getUnreadMessagesByUserId(String userId) {
-        return messageRepository.findUnreadMessagesByReceiverId(userId);
+    public void deleteAllMessages() {
+        messageRepository.deleteAll();
     }
 }

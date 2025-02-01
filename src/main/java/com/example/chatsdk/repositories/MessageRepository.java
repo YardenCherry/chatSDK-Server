@@ -11,4 +11,7 @@ public interface MessageRepository extends MongoRepository<Message, String> {
     public List<Message> findByChatId(String chatId);
 
     public List<Message> findUnreadMessagesByReceiverId(String receiverId);
+
+    // Find all messages for a specific chat, ordered by timestamp
+    List<Message> findByChatIdOrderByTimestampAsc(String chatId);
 }
