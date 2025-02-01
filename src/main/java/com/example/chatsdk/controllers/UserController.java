@@ -23,8 +23,8 @@ public class UserController {
     private ChatService chatService;
 
     @PostMapping("/register")
-    public User registerUser(@RequestParam String username, @RequestParam String passwordHash, @RequestParam(required = false) String avatarUrl) {
-        return userService.registerUser(username, passwordHash, avatarUrl);
+    public User registerUser(@RequestParam String username, @RequestParam String passwordHash) {
+        return userService.registerUser(username, passwordHash);
     }
 
     @GetMapping("/login")

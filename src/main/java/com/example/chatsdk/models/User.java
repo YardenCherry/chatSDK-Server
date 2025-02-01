@@ -12,7 +12,6 @@ public class User {
     private String id;
     private String username;
     private String passwordHash;
-    private String avatarUrl;
     private String status = "offline";
 
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -20,10 +19,9 @@ public class User {
     public User() {
     }
 
-    public User(String username, String passwordHash, String avatarUrl) {
+    public User(String username, String passwordHash) {
         this.username = username;
         this.passwordHash = passwordHash;
-        this.avatarUrl = avatarUrl;
         this.status = "offline";
         this.createdAt = LocalDateTime.now();
     }
@@ -49,14 +47,6 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -78,7 +68,6 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", avatarUrl='" + avatarUrl + '\'' +
                 ", status='" + status + '\'' +
                 ", createdAt=" + createdAt +
                 '}';

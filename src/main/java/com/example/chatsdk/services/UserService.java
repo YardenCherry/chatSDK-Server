@@ -15,7 +15,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User registerUser(String username, String passwordHash, String avatarUrl) {
+    public User registerUser(String username, String passwordHash) {
         Optional<User> existingUser = userRepository.findByUsername(username);
         if (existingUser.isPresent()) {
             throw new RuntimeException("Username already exists");
@@ -23,7 +23,6 @@ public class UserService {
         User user = new User();
         user.setUsername(username);
         user.setPasswordHash(passwordHash);
-        user.setAvatarUrl(avatarUrl);
         user.setStatus("offline");
         user.setCreatedAt(LocalDateTime.now());
 
