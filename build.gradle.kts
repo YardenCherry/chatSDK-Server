@@ -22,6 +22,7 @@ dependencies {
     implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+    implementation("me.paulschwarz:spring-dotenv:4.0.0")
 
 
     implementation(kotlin("stdlib-jdk8"))
