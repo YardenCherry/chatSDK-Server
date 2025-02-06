@@ -1,9 +1,16 @@
-FROM openjdk:17-jdk-slim
+# Build stage
+FROM eclipse-temurin:21-jdk-alpine AS builder
 
 WORKDIR /app
+COPY . .
+RUN chmod +x gradlew
+RUN ./gradlew bootJar
 
-COPY target/ChatSdk.jar app.jar
+# Run stage
+FROM eclipse-temurin:21-jdk-alpine AS runner
 
-EXPOSE 8080
+WORKDIR /app
+RUN ls -l
+COPY --from=builder /app/build/libs/*.jar app.jar
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar"]
